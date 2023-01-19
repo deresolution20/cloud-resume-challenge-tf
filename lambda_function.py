@@ -1,43 +1,26 @@
-# imports
-import boto3
 import json
 
-# get the service resource
-dynamodb = boto3.resource('dynamodb')
+import boto3
 
-# define table to be working on; set to variable "table"
-table = dynamodb.Table('tf_visitorcounttable')
+dynamodb = boto3.resource('dynamodb')
+table = dynamodb.Table('visitcount')
 
 def lambda_handler(event, context):
-    response = table.get_item(
-        Key={
-            'record_id': 'lol' # this record ID has already been set within DynamoDB
-            }
-    )
 
-    count = response['Item']['record_count'] # pull out the actual count number from DynamoDB
-    
-    # increment count by 1 on DynamoDB table
-    table.update_item(
-        Key={
-            'record_id': 'lol',
-        },
-        UpdateExpression='SET record_count = record_count + :val1',
-        ExpressionAttributeValues={
-            ':val1': 1 
-        }
-    )
-    
-    # get count again after it's been incremented...
-    response = table.get_item(
-        Key={
-            'record_id': 'lol'
-            }
-    )
-    
-    # ...so that you can set the count and return it
-    count = response['Item']['record_count']
-        
+    response = table.get_item(Key= {'appname' : 'ResumeApp'} )
+    count = response["Item"]["loadcount"]
+
+    # increment string version of visit count
+    new_count = str(int(count)+1)
+    response = table.update_item(
+        Key={'appname': 'ResumeApp'},
+        UpdateExpression='set loadcount = :c',
+        ExpressionAttributeValues={':c': new_count},
+        ReturnValues='UPDATED_NEW'
+        )
+
     return {
-        'count': count
+        'statusCode': 200,
+        'body': new_count
     }
+#end lambda_handler
