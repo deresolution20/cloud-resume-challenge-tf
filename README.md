@@ -61,3 +61,17 @@ push a git commit and circleCI will build a tf plan and hold.  Once approved, it
 
 ![tfstate](https://user-images.githubusercontent.com/85902399/210658423-1c62612c-4cdd-4d5c-8202-cd40f629dc29.png)
 
+<br> </br>
+
+<br> </br>
+
+
+- Validated CircleCI apply job
+
+
+- ![circlecivalid](https://user-images.githubusercontent.com/85902399/211437788-59b9ad5e-8886-4ed9-84a9-3c77baacca2f.png)
+
+![circle2](https://user-images.githubusercontent.com/85902399/211438171-1793620b-ef24-4324-8975-1ebd5dfacac5.png)
+
+
+
